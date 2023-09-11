@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/text-to-speechStudio.props" />
+</Project>

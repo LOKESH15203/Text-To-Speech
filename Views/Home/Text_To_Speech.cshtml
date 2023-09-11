@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+
+    <style>
+        :root {
+            --bg-color: #1f242d;
+            --second-bg-color: #323946;
+            --text-color: #fff;
+            --main-color: #0ef;
+        }
+
+        html {
+            font-size: 90%;
+        }
+
+/*        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 2rem 9% 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }*/
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #content-container {
+            text-align: center;
+        }
+
+        #textArea {
+            resize: none;
+            margin-top: 15%;
+            width: 60%;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            background: var(--second-bg-color);
+            border-radius: .8rem;
+        }
+
+        .choise {
+            margin-top: 10px;
+            color: var(--text-color);
+            background: var(--second-bg-color);
+        }
+
+        #speakButton,
+        #downloadButton {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 0.5rem 1.4rem;
+            background: var(--main-color);
+            border-radius: 2rem;
+            box-shadow: 0 0 0.5rem var(--main-color);
+            transition: 0.5s ease;
+            color: #1f242d;
+            cursor: pointer;
+        }
+        #speakButton:hover,
+        #downloadButton:hover {
+            box-shadow: none;
+        }
+    </style>
+
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=Tz8JIrs3"></script>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <script>var audContent;  // Global variable.
+        var voices = { "voices": [{ "languageCodes": ["en-GB"], "name": "en-GB-Standard-A", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-A", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-E", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-G", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-H", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-I", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-J", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-G", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-H", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-I", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-J", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-K", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-L", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-News-M", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Wavenet-A", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Wavenet-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Wavenet-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Wavenet-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Wavenet-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-News-K", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-News-L", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-News-M", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-News-N", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-G", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-H", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-I", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-J", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-A", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-E", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Wavenet-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Studio-M", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Studio-O", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Neural2-A", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Neural2-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Neural2-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Neural2-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Neural2-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-A", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-E", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-G", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-H", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-I", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Neural2-J", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Polyglot-1", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-A", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-GB"], "name": "en-GB-Standard-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-A", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-B", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-C", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-D", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-E", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-F", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-G", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-H", "naturalSampleRateHertz": 24000, "ssmlGender": "FEMALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-I", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }, { "languageCodes": ["en-US"], "name": "en-US-Standard-J", "naturalSampleRateHertz": 24000, "ssmlGender": "MALE" }] };
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var voicelist = responsiveVoice.getVoices();
+            var vselect = $("#voiceselection");
+            $.each(voices.voices, function () {
+                vselect.append($("<option />").val(this.name).text(this.name));
+            });
+
+            const speakButton = document.getElementById('speakButton');
+            const downloadButton = document.getElementById('downloadButton');
+            const textArea = document.getElementById('textArea');
+
+            //speakButton.addEventListener('click', async function () {
+            //    const text = textArea.value;
+            //    const selectedVoice = voiceselection.value;
+            //    if (text) {
+            //        fetchAndSpeakAudioUrl(text, selectedVoice);
+            //    }
+            //});
+
+            downloadButton.disabled = true;
+
+            speakButton.addEventListener('click', async function () {
+                const text = textArea.value;
+                const selectedVoice = voiceselection.value;
+                const selectedSpeed = parseFloat(speedSelection.value);
+                const selectedPitch = parseFloat(pitchSelection.value);
+                if (text) {
+                    downloadButton.disabled = false;
+                    fetchAndSpeakAudioUrl(text, selectedVoice, selectedSpeed, selectedPitch);
+                }
+            });
+
+            downloadButton.addEventListener('click', async function () {
+                const text = textArea.value;
+                const selectedVoice = $('#voiceselection').val();
+                if (text) {
+                    if (downloadButton.disabled) {
+                        // Show the hint if the Download button is clicked without speaking
+                        hint.style.display = 'block';
+                    } else {
+                        fetchAndDownloadAudioUrl(text, selectedVoice);
+                    }
+                }
+
+            });
+
+            async function fetchAndDownloadAudioUrl(text, selectedVoice) {
+                var audio = new Audio();
+                audio.src = 'data:audio/wav;base64,' + audContent;
+                var a = document.createElement('a');
+                a.href = audio.src;
+                a.download = 'speech.mp3';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                console.log("Controller action called successfully.");
+                //$.ajax({
+                //    type: "POST",  // You can use "POST" if needed
+                //    url: "/home/Index",
+                //    //contentType: "application/json",
+                //    data: {
+
+                //            text: text,
+                //            voiceName: selectedVoice
+
+                //    },
+                //    success: function (result) {
+                //        var audio = new Audio();
+                //        audio.src = 'data:audio/wav;base64,' + result;
+                //        var a = document.createElement('a');
+                //        a.href = audio.src;
+                //        a.download = 'speech.mp3';
+                //        document.body.appendChild(a);
+                //        a.click();
+                //        document.body.removeChild(a);
+                //        console.log("Controller action called successfully.");
+                //    },
+                //    error: function (xhr, status, error) {
+                //    console.log("Error calling controller action.");
+                //    }
+                //});
+            }
+
+            async function fetchAndSpeakAudioUrl(text, selectedVoice, selectedSpeed, selectedPitch) {
+                $.ajax({
+                    type: "POST",
+                    url: "/home/Index",
+                    data: {
+                        text: text,
+                        voiceName: selectedVoice,
+                        speed: selectedSpeed,
+                        pitch: selectedPitch
+                    },
+                    success: function (result) {
+                        audContent = result;
+                        var audio = new Audio();
+                        audio.src = 'data:audio/wav;base64,' + result;
+                        audio.play();
+                        console.log("Controller action called successfully.");
+                    }
+                });
+            }
+        });</script>
+
+    <form id="form1" runat="server">
+        <div id="content-container">
+            <div>
+                <textarea id="textArea" rows="5" cols="50">This is the text that you need to speak for the testing. (Pause: 5)This is my 2nd sentence. This is my third sentence.</textarea>
+                <br />
+                <select class="choise" id="voiceselection"></select>
+                <br />
+                <!-- Dropdown for Speed -->
+                <label for="speedSelection">Speed:</label>
+                <select class="choise" id="speedSelection">
+                    <option value="0.25">0.25x</option>
+                    <option value="0.5">0.5x</option>
+                    <option value="0.75">0.75x</option>
+                    <option value="0.9">0.9x</option>
+                    <option value="0.95">0.95x</option>
+                    <option value="1.0" selected>1.0x</option>
+                    <option value="1.1">1.1x</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="1.75">1.75x</option>
+                    <option value="2.0">2.0x</option>
+                </select>
+                <br />
+                <!-- Dropdown for Pitch -->
+                <label for="pitchSelection">Pitch:</label>
+                <select class="choise" id="pitchSelection">
+                    <option value="-15">-15</option>
+                    <option value="-10">-10</option>
+                    <option value="-5">-5</option>
+                    <option value="0" selected>0</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <br />
+                <button id="speakButton" type="button">Speak</button>
+                <button id="downloadButton" type="button">Download audio</button>
+                <br />
+
+            </div>
+        </div>
+    </form>
+
+
+}
