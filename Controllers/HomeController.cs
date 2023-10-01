@@ -92,7 +92,7 @@ public class HomeController : Controller
             {
                 request.Content = requestContent;
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                request.Headers.Add("X-goog-api-key", "AIzaSyA294KxYV_EbhbZ4H3WxOEasrWN3GFoe9w");
+                request.Headers.Add("X-goog-api-key", API-KEY);
 
                 System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
                 httpClient.Timeout = TimeSpan.FromMinutes(30);
